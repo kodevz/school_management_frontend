@@ -29,6 +29,13 @@ export class ManageMarksComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    
+    this.createFormBuilder();
+    this.exams$ = this.commonService.getExams();
+    this.classes$ = this.commonService.getClass();
+  }
+
+  createFormBuilder(): void {
     this.manageMarksForm = this.formBuilder.group({
       exam_id: [''],
       class_id: [''],
@@ -36,9 +43,6 @@ export class ManageMarksComponent implements OnInit {
       subject_id: [''],
       marks: this.formBuilder.array([])
     });
-
-    this.exams$ = this.commonService.getExams();
-    this.classes$ = this.commonService.getClass();
   }
 
   createMarksFormBuilder(): FormGroup {
@@ -56,6 +60,7 @@ export class ManageMarksComponent implements OnInit {
   }
 
   async fetchStudentWithMarks(): Promise<void> {
+ 
     const params = {
       exam_id: this.manageMarksForm.get('exam_id').value,
       class_id: this.manageMarksForm.get('class_id').value,
@@ -65,8 +70,10 @@ export class ManageMarksComponent implements OnInit {
     try {
       const { data } = await this.markService.studentWithMarks(params).toPromise();
       this.studentsWithMarks = data;
+
       this.marksForm = this.manageMarksForm.get('marks') as FormArray;
-      this.studentsWithMarks.map((mark:any, index) => {
+
+      this.studentsWithMarks.map((mark: any, index) => {
         let markfb = this.createMarksFormBuilder();
         markfb.get('subject_id').setValue(params.subject_id);
         markfb.get('class_id').setValue(params.class_id);
@@ -86,13 +93,14 @@ export class ManageMarksComponent implements OnInit {
 
   async saveMarks(): Promise<void> {
     try {
-      const {success, message} = await this.markService.saveMarks(this.manageMarksForm.value).toPromise();
+      const { success, message } = await this.markService.saveMarks(this.manageMarksForm.value).toPromise();
       if (success) {
         alert(message);
+        this.createFormBuilder();
         this.fetchStudentWithMarks();
       }
-    } catch ({error}) {
-      
+    } catch ({ error }) {
+
     }
   }
 

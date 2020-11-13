@@ -14,7 +14,7 @@
             <td>1</td>
             <td>{{section.name}}</td>
             <td>{{section.class.name}}</td>
-            <td>{{section.staff.user.name}}</td>
+            <td>{{section.staff?.user?.name}}</td>
             <td>
                 <button pButton pRipple type="button" [routerLink]="['/section/edit', section.id ]" icon="pi pi-pencil" class="p-button p-button-info  p-button-text">Edit</button>
             </td>

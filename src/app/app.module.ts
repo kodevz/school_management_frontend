@@ -11,6 +11,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CookieService } from 'ngx-cookie-service';
 import { SnotifyService, ToastDefaults, SnotifyModule  } from 'ng-snotify';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AppHttpInterceptor } from './http.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +31,8 @@ import { SnotifyService, ToastDefaults, SnotifyModule  } from 'ng-snotify';
   providers: [
     { provide: 'SnotifyToastConfig', useValue: ToastDefaults },
     CookieService,
-    SnotifyService
+    SnotifyService,
+    {provide: HTTP_INTERCEPTORS, useClass: AppHttpInterceptor, multi: true}
   ],
   bootstrap: [AppComponent],
   schemas: [
