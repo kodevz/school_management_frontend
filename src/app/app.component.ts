@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GlobalService } from './shared/global/global.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'school-management-app';
+
+  constructor(globalService: GlobalService) {
+    setTimeout(() => {
+      globalService.setLoginUser();
+    },500);
+  }
 }

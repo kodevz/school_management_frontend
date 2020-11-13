@@ -1,0 +1,13 @@
+app-sidebar {
+    .example-container {
+        height: 100vh;
+        margin: 0px;
+    }
+
+    mat-drawer-content, mat-sidenav-content {
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

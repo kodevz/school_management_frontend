@@ -1,0 +1,55 @@
+<form [formGroup]="gradeForm">
+    <mat-horizontal-stepper [linear]="isLinear" #stepper>
+        <mat-step label="Add Grade">
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label>Grade Name:</mat-label>
+                        <input matInput formControlName="name" placeholder="Grade">
+                    </mat-form-field>
+                    <app-form-field-error [errors]="formErrors" name="name"></app-form-field-error>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label>Class Type:</mat-label>
+                        <mat-select formControlName="class_type_id">
+                            <mat-option *ngFor="let classType of classTypes$ | async;" [value]="classType.value">
+                                {{ classType.label }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <app-form-field-error [errors]="formErrors" name="class_id"></app-form-field-error>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label>Mark From:</mat-label>
+                        <input type="number" matInput formControlName="mark_from" placeholder="Mark From">
+                    </mat-form-field>
+                    <app-form-field-error [errors]="formErrors" name="mark_from"></app-form-field-error>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label>Mark To:</mat-label>
+                        <input type="number" matInput formControlName="mark_to" placeholder="Mark To">
+                    </mat-form-field>
+                    <app-form-field-error [errors]="formErrors" name="mark_to"></app-form-field-error>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label>Remarks:</mat-label>
+                        <mat-select formControlName="remark">
+                            <mat-option>None</mat-option>
+                            <mat-option *ngFor="let remark of remarks$ | async;" value="{{ remark.value }}">
+                                {{ remark.label }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <app-form-field-error [errors]="formErrors" name="remark"></app-form-field-error>
+                </div>
+            </div>
+
+            <div>
+                <button mat-button color="accent">Back</button>
+                <button mat-button (click)="submitForm()" color="primary">Submit Form</button>
+            </div>
+        </mat-step>
+    </mat-horizontal-stepper>
+</form>

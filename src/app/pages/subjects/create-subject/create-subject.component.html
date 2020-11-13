@@ -1,0 +1,47 @@
+<form [formGroup]="subjectForm">
+    <mat-horizontal-stepper [linear]="isLinear" #stepper>
+        <mat-step label="Create Subject For Classes">
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <mat-label>Subject:</mat-label>
+                        <input matInput formControlName="name" placeholder="Subject">
+                    </mat-form-field>
+                    <app-form-field-error [errors]="formErrors" name="name"></app-form-field-error>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <mat-label>Short Name:</mat-label>
+                        <input matInput formControlName="slug" placeholder="Short Name">
+                    </mat-form-field>
+                    <app-form-field-error [errors]="formErrors" name="slug"></app-form-field-error>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <mat-label>Class:</mat-label>
+                        <mat-select formControlName="class_id">
+                            <mat-option>None</mat-option>
+                            <mat-option *ngFor="let class of classes$ | async;" [value]="class.value">{{ class.label }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <app-form-field-error [errors]="formErrors" name="class_id"></app-form-field-error>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <mat-label>Teacher:</mat-label>
+                        <mat-select formControlName="teacher_id">
+                            <mat-option>None</mat-option>
+                            <mat-option *ngFor="let staff of staffs$ | async;" [value]="staff.value">{{ staff.label }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <app-form-field-error [errors]="formErrors" name="teacher_id"></app-form-field-error>
+                </div>
+            </div>
+
+            <div>
+                <button mat-button color="accent">Back</button>
+                <button mat-button (click)="submitForm()" color="primary">Submit Form</button>
+            </div>
+        </mat-step>
+    </mat-horizontal-stepper>
+</form>

@@ -1,0 +1,79 @@
+<section>
+
+    <mat-accordion class="example-headers-align">
+        <mat-expansion-panel [expanded]="'true'">
+            <mat-expansion-panel-header>
+                <mat-panel-description>
+                    <h5><strong>Search Mark Sheet By Exam</strong></h5>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <mat-horizontal-stepper #stepper>
+                <mat-step label="View Mark Sheet">
+
+                    <mat-form-field class="col-md-6">
+                        <mat-label>Exams</mat-label>
+                        <mat-select [(ngModel)]="markSheetSearch.exam_id" required>
+                            <mat-option *ngFor="let exam of exams$ | async;" value="{{ exam.value }}">
+                                {{ exam.label }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div>
+                        <button mat-button (click)="viewMarkSheet()" matStepperNext color="primary">View
+                            Marksheet</button>
+                    </div>
+                </mat-step>
+
+            </mat-horizontal-stepper>
+
+        </mat-expansion-panel>
+        <mat-expansion-panel [expanded]="'true'" *ngIf="studentMarkSheet?.length">
+            <mat-expansion-panel-header>
+                <mat-panel-description>
+                    <h5><strong>Student Marksheet</strong></h5>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div>
+                <h3>Name: {{ studentMarkSheet[0].student.user.name }}</h3>
+                <h3>Class: {{ studentMarkSheet[0].class.name }} {{ studentMarkSheet[0].section.name }}</h3>
+            </div>
+            <p-table [value]="studentMarkSheet">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Subjects</th>
+                        <th>Mark1</th>
+                        <th>Mark2</th>
+                        <th>Mark3</th>
+                        <th>Total Mark</th>
+                        <th>Grade</th>
+                        <th>Remarks</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-mark let-i="rowIndex">
+                    <tr>
+                        <td>{{mark.subject.name}}</td>
+                        <td>{{mark.mark1}}</td>
+                        <td>{{mark.mark2}}</td>
+                        <td>{{mark.mark3}}</td>
+                        <td>{{mark.total_mark}}</td>
+                        <td>{{mark.grade?.name}}</td>
+                        <td>{{mark.grade?.remark}}</td>
+                        <td></td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr>
+                        <td colspan="3">Total Marks</td>
+                        <td></td>
+                        <td colspan="2">Rank</td>
+                        <td></td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <div>
+                <button mat-button (click)="printMarkSheet()"  color="primary">Print Mark Sheet</button>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+
+</section>

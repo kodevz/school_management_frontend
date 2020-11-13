@@ -1,0 +1,29 @@
+<form [formGroup]="classesForm">
+    <mat-horizontal-stepper [linear]="isLinear" #stepper>
+        <mat-step label="Create Class">
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label>Class Name:</mat-label>
+                        <input matInput formControlName="name" placeholder="Class">
+                    </mat-form-field>
+                    <app-form-field-error [errors]="formErrors" name="name"></app-form-field-error>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label>Class Type: </mat-label>
+                        <mat-select formControlName="class_type_id">
+                            <mat-option *ngFor="let classType of classTypes$ | async;" [value]="classType.value">{{ classType.label }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <app-form-field-error [errors]="formErrors" name="class_type_id"></app-form-field-error>
+                </div>
+            </div>
+
+            <div>
+                <button mat-button color="accent">Back</button>
+                <button mat-button (click)="submitForm()" color="primary">Submit Form</button>
+            </div>
+        </mat-step>
+    </mat-horizontal-stepper>
+</form>

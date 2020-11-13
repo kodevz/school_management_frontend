@@ -1,0 +1,88 @@
+<section>
+    <form [formGroup]="manageMarksForm">
+        <mat-accordion class="example-headers-align">
+            <mat-expansion-panel [expanded]="'true'">
+                <mat-expansion-panel-header>
+                    <mat-panel-description>
+                        <h5><strong>Manage Marks</strong></h5>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <mat-horizontal-stepper #stepper>
+                    <mat-step label="Manage Marks">
+                        <mat-form-field class="col-md-3">
+                            <mat-label>Exam</mat-label>
+                            <mat-select formControlName="exam_id" required>
+                                <mat-option *ngFor="let exam of exams$ | async;" value="{{ exam.value }}">
+                                    {{ exam.label }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="col-md-3">
+                            <mat-label>Class</mat-label>
+                            <mat-select formControlName="class_id" required (selectionChange)="onChangeClass($event)">
+                                <mat-option *ngFor="let class of classes$ | async;" value="{{ class.value }}">
+                                    {{ class.label }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="col-md-3">
+                            <mat-label>Section</mat-label>
+                            <mat-select formControlName="section_id" required>
+                                <mat-option *ngFor="let section of sections$ | async;" value="{{ section.value }}">
+                                    {{ section.label }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="col-md-3">
+                            <mat-label>Subject</mat-label>
+                            <mat-select formControlName="subject_id">
+                                <mat-option *ngFor="let subject of subjects$ | async;" value="{{ subject.value }}">
+                                    {{ subject.label }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div>
+                            <button mat-button (click)="fetchStudentWithMarks()" matStepperNext color="primary">Manage
+                                Marks</button>
+                        </div>
+                    </mat-step>
+
+                </mat-horizontal-stepper>
+
+            </mat-expansion-panel>
+            <mat-expansion-panel [expanded]="'true'" *ngIf="studentsWithMarks?.length">
+                <mat-expansion-panel-header>
+                    <mat-panel-description>
+                        <h5><strong>Student With Marks</strong></h5>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p-table [value]="studentsWithMarks">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>S.No.</th>
+                            <th>Name</th>
+                            <th>Admission No.</th>
+                            <th>Mark1</th>
+                            <th>Mark2</th>
+                            <th>Mark3</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-student let-i="rowIndex">
+                        <tr [formGroup]="marksForm.controls[i]">
+                            <td>{{ i+1 }}</td>
+                            <td>{{student.student_name}}</td>
+                            <td>{{student.admission_no}}</td>
+                            <td><input matInput placeholder="Mark1" formControlName="mark1" value="{{student.mark1}}">
+                            </td>
+                            <td><input matInput placeholder="Mark2" formControlName="mark2" value="{{student.mark2}}">
+                            </td>
+                            <td><input matInput placeholder="Mark3" formControlName="mark3" value="{{student.mark3}}">
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+
+                <div>
+                    <button mat-button (click)="saveMarks()"  color="primary">Manage Marks</button>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </form>
+</section>

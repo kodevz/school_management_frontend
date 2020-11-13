@@ -1,0 +1,34 @@
+<form [formGroup]="examForm">
+    <mat-horizontal-stepper [linear]="isLinear" #stepper>
+        <mat-step label="Add Exam">
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label>Exam Name:</mat-label>
+                        <input matInput formControlName="name" placeholder="Exam">
+                    </mat-form-field>
+                    <app-form-field-error [errors]="formErrors" name="name"></app-form-field-error>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label>Term:</mat-label>
+                        <input matInput formControlName="term" placeholder="Term">
+                    </mat-form-field>
+                    <app-form-field-error [errors]="formErrors" name="term"></app-form-field-error>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label>Year:</mat-label>
+                        <input matInput formControlName="year" placeholder="Ex: 2019-2020">
+                    </mat-form-field>
+                    <app-form-field-error [errors]="formErrors" name="year"></app-form-field-error>
+                </div>
+            </div>
+
+            <div>
+                <button mat-button color="accent">Back</button>
+                <button mat-button (click)="submitForm()" color="primary">Submit Form</button>
+            </div>
+        </mat-step>
+    </mat-horizontal-stepper>
+</form>

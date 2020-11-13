@@ -1,0 +1,21 @@
+<p-table #manageClassTable [value]="rows" [lazy]="true" (onLazyLoad)="initClasses($event)"
+    [paginator]="true" [rows]="dtPageOptions.rows" [totalRecords]="totalRecords" [loading]="loading">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>S.No.</th>
+            <th>Class</th>
+            <th>Class Type</th>
+            <th>Action</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-class>
+        <tr>
+            <td>1</td>
+            <td>{{class.name}}</td>
+            <td>{{class.class_type.name}}</td>
+            <td>
+                <button pButton pRipple type="button" [routerLink]="['/classes/edit', class.id ]" icon="pi pi-pencil" class="p-button p-button-info  p-button-text">Edit</button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

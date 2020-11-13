@@ -1,0 +1,23 @@
+<p-table #manageExamTable [value]="rows" [lazy]="true" (onLazyLoad)="initExams($event)"
+    [paginator]="true" [rows]="dtPageOptions.rows" [totalRecords]="totalRecords" [loading]="loading">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>S.No.</th>
+            <th>Name</th>
+            <th>Term</th>
+            <th>Session</th>
+            <th>Action</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-exam>
+        <tr>
+            <td>1</td>
+            <td>{{exam.name}}</td>
+            <td>{{exam.term}}</td>
+            <td>{{exam.year}}</td>
+            <td>
+                <button pButton pRipple type="button" [routerLink]="['/exams/edit', exam.id ]" icon="pi pi-pencil" class="p-button p-button-info  p-button-text">Edit</button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

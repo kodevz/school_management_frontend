@@ -1,0 +1,25 @@
+<p-table #manageSectionTable [value]="rows" [lazy]="true" (onLazyLoad)="initGrades($event)"
+    [paginator]="true" [rows]="dtPageOptions.rows" [totalRecords]="totalRecords" [loading]="loading">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>S.No.</th>
+            <th>Grade</th>
+            <th>Grade Type</th>
+            <th>Range</th>
+            <th>Remarks</th>
+            <th>Action</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-grade>
+        <tr>
+            <td>1</td>
+            <td>{{grade.name}}</td>
+            <td>{{grade?.class_type?.name}}</td>
+            <td>{{grade.mark_from}} - {{grade.mark_to}}</td>
+            <td>{{grade.remark}}</td>
+            <td>
+                <button pButton pRipple type="button" [routerLink]="['/grades/edit', grade.id ]" icon="pi pi-pencil" class="p-button p-button-info  p-button-text">Edit</button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

@@ -1,0 +1,16 @@
+<section>
+    <mat-accordion class="example-headers-align">
+        <mat-expansion-panel [expanded]="'true'">
+            <mat-expansion-panel-header>
+                <mat-panel-description>
+                    <h5><strong>Grade Management</strong></h5>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <nav mat-tab-nav-bar [backgroundColor]="background">
+                <a mat-tab-link *ngFor="let nav of navLinks" (click)="activeLink = nav.label"
+                    [active]="activeLink == nav.label" [routerLink]="nav.link"> {{nav.label}} </a>
+            </nav>
+            <router-outlet></router-outlet>
+        </mat-expansion-panel>
+    </mat-accordion>
+</section>

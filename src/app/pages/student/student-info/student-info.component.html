@@ -1,0 +1,28 @@
+<p-table #manageSectionTable [value]="rows" [lazy]="true" (onLazyLoad)="initStudentInfo($event)" [paginator]="true"
+    [rows]="dtPageOptions.rows" [totalRecords]="totalRecords" [loading]="loading">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>S.No.</th>
+            <th>Name</th>
+            <th>Admission No.</th>
+            <th>Class</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-student>
+        <tr>
+            <td>1</td>
+            <td>{{student.user.name}}</td>
+            <td>{{student.admission_no}}</td>
+            <td>{{student.class.name}}</td>
+            <td>{{student.user.email}}</td>
+            <td>
+                <button mat-button icon="pi pi-pencil" class="p-button-rounded p-button-info  p-button-text"
+                    [routerLink]="['/student/admission-edit', student.id ]">Edit</button>
+
+
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
